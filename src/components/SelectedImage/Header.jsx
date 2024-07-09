@@ -1,10 +1,10 @@
 "use client";
 
 import { AttributionCtx } from "@/store/attribution";
-import CheckIcon from "../Icons/Check";
+import { CheckIcon } from "../Icons/Check";
 import Image from "next/image";
 import Link from "next/link";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import ArrowDownIcon from "../Icons/ArrowDown";
 import { AnimatePresence, motion } from "framer-motion";
 import downloadImage from "@/lib/downloadImage";
