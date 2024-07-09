@@ -10,7 +10,6 @@ export default async function Header() {
 
   if (token !== undefined) {
     profile = await fetchProfile();
-    console.log('fetch profile');
   }
 
   return (

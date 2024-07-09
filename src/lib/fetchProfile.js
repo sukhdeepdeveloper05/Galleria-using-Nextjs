@@ -21,7 +21,6 @@ export default async function fetchProfile() {
     }
 
     const resData = await response.json();
-    console.log(resData);
 
     return resData;
   } catch (error) {
