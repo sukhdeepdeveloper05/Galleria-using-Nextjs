@@ -1,7 +1,7 @@
 "use client";
 
 import { AttributionCtx } from "@/store/attribution";
-import { CheckIcon } from "../Icons/Check";
+import { CheckCircleIcon } from "../Icons/Check";
 import Image from "next/image";
 import Link from "next/link";
 import { useContext, useState } from "react";
@@ -29,7 +29,7 @@ export default function SelectedImageHeader({ image }) {
           {image.user.for_hire ? (
             <span className="text-[#007fff] text-xs inline-flex items-center">
               Available for hire&nbsp;
-              <CheckIcon />
+              <CheckCircleIcon />
             </span>
           ) : (
             <span className="text-xs text-gray">@{image.user.username}</span>

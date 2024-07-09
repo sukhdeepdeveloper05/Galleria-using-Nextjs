@@ -1,6 +1,6 @@
 import Image from "next/image";
 import FollowButton from "./FollowButton";
-import CheckIcon from "../Icons/Check";
+import { CheckCircleIcon } from "../Icons/Check";
 import LocationIcon from "../Icons/Location";
 
 export default function UserDetails({ user, loggedInUser, isAdmin }) {
@@ -28,7 +28,7 @@ export default function UserDetails({ user, loggedInUser, isAdmin }) {
           <ul className="flex flex-col gap-x-6 gap-y-2 list-none">
             {user.for_hire && (
               <li className="text-[#007fff] fill-current flex items-center gap-2">
-                <CheckIcon />
+                <CheckCircleIcon />
                 Available for hire
               </li>
             )}
