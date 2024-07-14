@@ -5,7 +5,7 @@ import DownloadBtnFull from "../UI/DownloadBtnFull";
 
 export default function SelectedImageHeader({ image }) {
   return (
-    <header className="bg-white flex items-center justify-between sticky top-14 sm:top-16 left-0 right-0 z-10 px-5 py-3 rounded">
+    <header className="bg-white flex items-center justify-between sticky top-0 sm:top-16 left-0 right-0 z-10 px-5 py-3 rounded">
       <Link
         className="flex items-center text-black no-underline"
         href={`/@${image.user.username}`}
