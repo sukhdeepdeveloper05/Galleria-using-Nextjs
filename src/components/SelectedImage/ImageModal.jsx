@@ -16,12 +16,12 @@ export default function ImageModal({ children }) {
 
   useEffect(() => {
     setIsMounted(true);
-    document.body.style.overflow = "hidden";
+    document.body.classList.add("overflow-hidden");
     window.addEventListener("keydown", closeModal);
 
     return () => {
       setIsMounted(false);
-      document.body.style.overflow = "visible";
+      document.body.classList.remove("overflow-hidden");
       window.removeEventListener("keydown", closeModal);
     };
   }, []);

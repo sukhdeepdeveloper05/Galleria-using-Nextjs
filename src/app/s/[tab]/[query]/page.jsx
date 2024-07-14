@@ -4,9 +4,10 @@ import Users from "@/components/UI/Users";
 import fetchData from "@/lib/fetchData";
 import { notFound } from "next/navigation";
 
-export function generateMetadata({ params }) {
-  const query = params.query.split("-");
+export async function generateMetadata({ params }) {
+  const query = decodeURIComponent(params.query);
   const formattedQuery = query
+    .split("-")
     .map((word) => {
       return word[0].toUpperCase() + word.substring(1);
     })
@@ -18,37 +19,40 @@ export function generateMetadata({ params }) {
 }
 
 export default async function SearchPage({ params, searchParams }) {
-  if (params.tab !== "photos" && params.tab !== "users") {
+  const query = decodeURIComponent(params.query);
+  const tab = params.tab;
+
+  if (tab !== "photos" && tab !== "users") {
     notFound();
   }
 
   const filters = new URLSearchParams(searchParams);
 
   const images = await fetchData(
-    `/search/photos/?query=${params.query}&per_page=30&page=1${
+    `/search/photos/?query=${query}&per_page=30&page=1${
       filters && "&" + filters.toString()
     }`
   );
 
   const users = await fetchData(
-    `/search/users/?query=${params.query}&per_page=30&page=1`
+    `/search/users/?query=${query}&per_page=30&page=1`
   );
 
   return (
     <>
       <SearchNav
-        tab={params.tab}
+        tab={tab}
         totalPhotos={images.total}
         totalUsers={users.total}
-        query={params.query}
+        query={query}
         searchParams={searchParams}
         orientation={searchParams.orientation ?? ""}
         orderBy={searchParams.order_by ?? ""}
       />
-      <h1 className="text-2xl font-bold mx-12 my-4">
-        {params.query.charAt(0).toUpperCase() + params.query.slice(1)}
+      <h1 className="text-2xl font-bold mx-3 sm:mx-12 my-4">
+        {query.charAt(0).toUpperCase() + query.slice(1).split("-").join(" ")}
       </h1>
-      {params.tab === "photos" && (
+      {tab === "photos" && (
         <Images
           key={filters.toString()}
           endpoint={`/search/photos/?query=${params.query}&per_page=30&page=1${
@@ -59,9 +63,9 @@ export default async function SearchPage({ params, searchParams }) {
         />
       )}
 
-      {params.tab === "users" && (
+      {tab === "users" && (
         <Users
-          endpoint={`/search/users/?query=${params.query}&per_page=30&page=1`}
+          endpoint={`/search/users/?query=${query}&per_page=30&page=1`}
           staticUsers={users.results}
           totalUsers={users.total}
         />

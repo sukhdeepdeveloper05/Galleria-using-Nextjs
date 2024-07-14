@@ -6,7 +6,6 @@ import Loader from "./Loader";
 import { useState } from "react";
 import fetchData from "@/lib/fetchData";
 import filterImages from "@/helpers/filterImages";
-import ImageCard from "./ImageCard";
 import UserCard from "./UserCard";
 
 export default function Users({ staticUsers, totalUsers = 200, endpoint }) {
@@ -34,7 +33,7 @@ export default function Users({ staticUsers, totalUsers = 200, endpoint }) {
   }
 
   return (
-    <main className="my-10 mx-12">
+    <main className="my-5 sm:my-10 mx-4 sm:mx-12">
       <InfiniteScroll
         dataLength={filteredUsers.length}
         next={fetchNextPage}

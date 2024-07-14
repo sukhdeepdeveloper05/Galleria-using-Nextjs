@@ -9,7 +9,7 @@ import HeartIcon from "../Icons/Heart";
 export default function ProfileTabsNav({ user }) {
   const pathname = usePathname();
   return (
-    <nav className="sticky top-[63px] z-[2] px-5 bg-white shadow-[0_1px_1px_#dadada]">
+    <nav className="sticky top-0 sm:top-[63px] z-[2] px-5 bg-white shadow-[0_1px_1px_#dadada]">
       <ul className="flex items-center gap-8 relative list-none">
         <li>
           <Link

@@ -6,6 +6,7 @@ import Details from "./Details";
 import RelatedImages from "./RelatedImages";
 import ShareIcon from "../Icons/Share";
 import SelectedImageHeader from "./Header";
+import { blurhashToBase64 } from "blurhash-base64";
 
 function toggleImageScale(event) {
   const image = event.target;
@@ -39,12 +40,15 @@ export default function ImageDetails({ image, relatedImages }) {
     <div className="relative bg-white rounded" key={image.id}>
       <div>
         <SelectedImageHeader image={image} />
-        <figure className="selected-image">
+        <figure className="selected-image relative w-full">
           <Image
             src={image.urls.regular}
-            blurDataURL={image?.blur_hash}
-            placeholder={image?.blur_hash ? "blur" : "empty"}
             priority
+            placeholder="blur"
+            blurDataURL={
+              blurhashToBase64(image.blur_hash) ??
+              "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAADUlEQVR4AQECAP3/AAAAAgABfgUN0gAAAABJRU5ErkJggg=="
+            }
             alt={image.alt_description || image.slug}
             title="Zoom in this image"
             style={{

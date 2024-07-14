@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 
 export async function setToken(token) {
   const cookieStore = cookies();
-  cookieStore.set("token", token);
+  cookieStore.set("token", token, { sameSite: "strict" });
 }
 
 export async function getToken() {

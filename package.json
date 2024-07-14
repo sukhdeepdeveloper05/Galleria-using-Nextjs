@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "blurhash-base64": "^0.0.3",
     "framer-motion": "^11.2.12",
     "next": "14.2.4",
     "next-nprogress-bar": "^2.3.12",

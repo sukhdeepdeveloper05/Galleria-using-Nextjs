@@ -2,9 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  :root {
+    --gutter: 50px;
+  }
+
+  @media (min-width: 640px) {
+    :root {
+      --gutter: 16px;
+    }
+  }
+}
+
 @layer components {
   .btn-outline {
-    @apply inline-block no-underline outline-none border border-[#d1d1d1] bg-transparent text-sm text-gray px-2 leading-8 rounded-md hover:border-gray hover:text-black transition duration-200 fill-current;
+    @apply inline-flex items-center no-underline outline-none border border-[#d1d1d1] bg-transparent text-sm text-gray px-2 leading-8 rounded-md hover:border-gray hover:text-black transition duration-200 fill-current whitespace-nowrap;
   }
 }
 
@@ -15,7 +27,6 @@
   scroll-behavior: smooth;
 }
 
-html,
 body {
   max-width: 100vw;
   min-height: 100%;
@@ -26,10 +37,6 @@ body {
 .align-center {
   display: flex;
   align-items: center;
-}
-
-.hidden {
-  display: none !important;
 }
 
 .loader {

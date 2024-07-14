@@ -5,7 +5,7 @@ import LocationIcon from "../Icons/Location";
 
 export default function UserDetails({ user, loggedInUser, isAdmin }) {
   return (
-    <section className="grid grid-cols-12 px-5 py-12 relative items-start gap-x-6">
+    <section className="flex flex-col sm:grid grid-cols-12 px-5 py-12 relative items-start gap-x-6">
       <figure className="flex justify-end col-span-4 pr-8">
         <Image
           src={user.profile_image.large}
@@ -17,7 +17,7 @@ export default function UserDetails({ user, loggedInUser, isAdmin }) {
       </figure>
       <div className="col-span-8 flex flex-col gap-4">
         <div className="flex items-center gap-6">
-          <h2 className="text-[40px]">{user.name}</h2>
+          <h2 className="text-3xl sm:text-[40px]">{user.name}</h2>
           {!isAdmin && <FollowButton user={user} loggedInUser={loggedInUser} />}
         </div>
         <div className="flex flex-col gap-y-4">

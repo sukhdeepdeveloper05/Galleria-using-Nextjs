@@ -43,7 +43,7 @@ export default function TopicsNav({ topics }) {
   }
 
   return (
-    <div className="sticky top-[64px] z-[2] px-5 bg-white shadow-[0_0_5px_#dadada]">
+    <div className="sticky top-0 sm:top-16 z-[2] px-4 sm:px-5 bg-white shadow-[0_1px_#0000001f]">
       <nav className="flex items-center relative overflow-hidden">
         <p>
           <Link
@@ -56,7 +56,7 @@ export default function TopicsNav({ topics }) {
             {pathName === "/" && <ActiveTabIndecator />}
           </Link>
         </p>
-        <div className="bg-[#d1d1d1] h-8 w-px" />
+        <div className="bg-[#d1d1d1] h-8 w-px z-10" />
 
         <ul
           className="topics-list flex items-center gap-3 pl-3 list-none whitespace-nowrap overflow-auto"
@@ -64,14 +64,14 @@ export default function TopicsNav({ topics }) {
           onScroll={changeBtnsVisibility}
         >
           <button
-            className={`absolute top-0 left-[74px] bottom-0 z-10 w-8 outline-none border-none cursor-pointer pl-2 text-lightGray transition hover:text-black before:w-52 before:h-full before:absolute before:top-0 before:left-0 before:bg-gradient-to-r before:from-white before:to-[#fff0] before:-z-10 before:pointer-events-none ${
+            className={`absolute top-0 left-[74px] bottom-0 z-10 w-8 outline-none border-none cursor-pointer pl-2 text-lightGray transition hover:text-black before:w-20 sm:before:w-48 before:h-full before:absolute before:top-0 before:left-0 before:bg-gradient-to-r before:from-white before:to-[#fff0] before:-z-10 before:pointer-events-none ${
               isLeftBtnVisible ? "" : "hidden"
             }`}
             ref={leftBtn}
             onClick={scrollToLeft}
             title="scroll list to the left"
           >
-            <LeftIcon />
+            <LeftIcon className="hidden sm:block" />
           </button>
           {topics.map((topic) => {
             return (
@@ -89,14 +89,14 @@ export default function TopicsNav({ topics }) {
             );
           })}
           <button
-            className={`absolute top-0 left-auto right-0 bottom-0 z-10 w-8 outline-none border-none cursor-pointer pl-2 text-lightGray transition hover:text-black before:w-52 before:h-full before:absolute before:top-0 before:right-0 before:bg-gradient-to-r before:from-[#fff0] before:to-white before:-z-10 before:pointer-events-none ${
+            className={`absolute top-0 left-auto right-0 bottom-0 z-10 w-8 outline-none border-none cursor-pointer pl-2 text-lightGray transition hover:text-black before:w-20 sm:before:w-48 before:h-full before:absolute before:top-0 before:right-0 before:bg-gradient-to-r before:from-[#fff0] before:to-white before:-z-10 before:pointer-events-none ${
               isRightBtnVisible ? "" : "hidden"
             }`}
             ref={rightBtn}
             onClick={scrollToRight}
             title="scroll list to the right"
           >
-            <RightIcon />
+            <RightIcon className="hidden sm:block" />
           </button>
         </ul>
       </nav>

@@ -1,14 +1,14 @@
 "use client";
 
-import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
-import InfiniteScroll from "react-infinite-scroll-component";
-import Loader from "./Loader";
 import { useState } from "react";
 import fetchData from "@/lib/fetchData";
 import filterImages from "@/helpers/filterImages";
+import Loader from "./Loader";
+import InfiniteScroll from "react-infinite-scroll-component";
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import ImageCard from "./ImageCard";
 
-export default function Images({ staticImages, totalPhotos = 200, endpoint }) {
+export default function Images({ staticImages, totalPhotos = 1000, endpoint }) {
   const [pageNum, setPageNum] = useState(2);
   const [filteredImages, setFilteredImages] = useState([...staticImages]);
   const [error, setError] = useState(
@@ -35,7 +35,7 @@ export default function Images({ staticImages, totalPhotos = 200, endpoint }) {
   }
 
   return (
-    <main className="my-10 mx-12">
+    <main className="my-5 sm:my-10 mx-0 sm:mx-12">
       <InfiniteScroll
         dataLength={filteredImages.length}
         next={fetchNextPage}
@@ -44,11 +44,11 @@ export default function Images({ staticImages, totalPhotos = 200, endpoint }) {
         endMessage={<p></p>}
       >
         <ResponsiveMasonry
-          columnsCountBreakPoints={{ 300: 1, 550: 2, 1024: 3, 1440: 4 }}
+          columnsCountBreakPoints={{ 300: 1, 640: 2, 1024: 3, 1440: 4 }}
         >
-          <Masonry gutter="1rem">
+          <Masonry gutter="var(--gutter)">
             {filteredImages.flatMap((image) => {
-              return <ImageCard image={image} key={image.id} />;
+              return <ImageCard key={image.id} image={image} />;
             })}
           </Masonry>
         </ResponsiveMasonry>

@@ -94,7 +94,7 @@ const filtersData = [
   },
 ];
 
-export default function Filters() {
+export default function Filters({ closeModal = () => {} }) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = new URLSearchParams(useSearchParams());
@@ -103,28 +103,30 @@ export default function Filters() {
 
   function clearFilters() {
     router.push(`${pathname}`);
-    
+
+    closeModal();
     setOpenedMenu("");
   }
 
   function updateFilter(e, key, value) {
     e.preventDefault();
-    
+
     if (value !== "") {
       searchParams.set(key, value);
     } else {
       searchParams.delete(key);
     }
-    
+
     router.push(`${pathname}?${searchParams.toString()}`);
+    closeModal();
     setOpenedMenu("");
   }
 
   return (
-    <ul className="flex items-center gap-2 relative list-none">
+    <ul className="flex sm:items-center flex-col sm:flex-row gap-2 mt-6 sm:mt-0 relative list-none">
       {searchParams.size !== 0 && (
         <button
-          className="text-lightGray mr-6 text-sm hover:text-black transition"
+          className="hidden sm:block text-lightGray mr-6 text-sm hover:text-black transition"
           onClick={clearFilters}
         >
           Clear
@@ -137,7 +139,7 @@ export default function Filters() {
         return (
           <li key={i}>
             <button
-              className={`group py-1 px-2 border rounded text-sm flex items-center hover:border-[#d1d1d1] hover:bg-[#f5f5f5] transition ${
+              className={`group py-1 px-2 border rounded text-sm hidden sm:flex items-center hover:border-[#d1d1d1] hover:bg-[#f5f5f5] transition ${
                 searchParams.has([filter.handle])
                   ? "border-[#d1d1d1] bg-[#f5f5f5]"
                   : "border-[#eee]"
@@ -166,43 +168,47 @@ export default function Filters() {
               <SolidArrowDownIcon className="fill-[#aaa] ml-1" />
             </button>
             <AnimatePresence mode="wait">
-              {openedMenu === filter.handle && (
-                <motion.div
-                  className="absolute top-11 bg-white py-2 min-w-32 rounded shadow-[0px_8px_16px_#00000029,_0px_0px_0px_1px_#0000001f] origin-top-left"
-                  animate={{ scale: [0, 1] }}
-                  exit={{ scale: [1, 0] }}
-                  transition={{ type: "tween", duration: 0.2 }}
-                >
-                  <span className="px-4 py-2 block text-sm">{filter.name}</span>
-                  {filter.values.map((value, j) => {
-                    return (
-                      <Link
-                        key={j}
-                        className={` text-sm py-2 px-4 whitespace-nowrap no-underline flex hover:bg-[#f5f5f5] hover:text-black ${
-                          (searchParams.get([filter.handle]) ?? "") ===
-                          value.handle
-                            ? "text-black cursor-default pointer-events-none"
-                            : "text-gray"
-                        }`}
-                        href={value.url ?? pathname}
-                        onClick={(e) => {
-                          updateFilter(e, filter.handle, value.handle);
-                        }}
-                      >
-                        {filter.handle === "orientation" &&
-                          value.icon(searchParams.get(["orientation"]) || "")}
-                        {filter.handle === "order_by" &&
-                        (searchParams.get(["order_by"]) || "") === value.handle
-                          ? value.icon()
-                          : filter.handle === "order_by" && (
-                              <span className="w-[18px] h-[18px] mr-1" />
-                            )}
-                        {value.title}
-                      </Link>
-                    );
-                  })}
-                </motion.div>
-              )}
+              {openedMenu === filter.handle ||
+                (window.outerWidth <= 640 && (
+                  <motion.div
+                    className="sm:absolute sm:top-11 bg-white py-2 sm:min-w-32 sm:rounded sm:shadow-[0px_8px_16px_#00000029,_0px_0px_0px_1px_#0000001f] origin-top-left"
+                    animate={{ scale: window.outerWidth > 640 && [0, 1] }}
+                    exit={{ scale: window.outerWidth > 640 && [1, 0] }}
+                    transition={{ type: "tween", duration: 0.2 }}
+                  >
+                    <span className="sm:px-4 py-2 block text-base sm:text-sm">
+                      {filter.name}
+                    </span>
+                    {filter.values.map((value, j) => {
+                      return (
+                        <Link
+                          key={j}
+                          className={`text-sm py-2 px-2 sm:px-4 whitespace-nowrap no-underline flex hover:bg-[#f5f5f5] hover:text-black ${
+                            (searchParams.get([filter.handle]) ?? "") ===
+                            value.handle
+                              ? "text-black cursor-default pointer-events-none"
+                              : "text-gray"
+                          }`}
+                          href={value.url ?? pathname}
+                          onClick={(e) => {
+                            updateFilter(e, filter.handle, value.handle);
+                          }}
+                        >
+                          {filter.handle === "orientation" &&
+                            value.icon(searchParams.get(["orientation"]) || "")}
+                          {filter.handle === "order_by" &&
+                          (searchParams.get(["order_by"]) || "") ===
+                            value.handle
+                            ? value.icon()
+                            : filter.handle === "order_by" && (
+                                <span className="w-[18px] h-[18px] mr-1" />
+                              )}
+                          {value.title}
+                        </Link>
+                      );
+                    })}
+                  </motion.div>
+                ))}
             </AnimatePresence>
           </li>
         );
