@@ -4,10 +4,7 @@ import fetchData from "@/lib/fetchData";
 import Images from "@/components/UI/Images";
 
 export async function generateMetadata({ params }) {
-  const response = await fetch(
-    `https://api.unsplash.com/topics/${params.topic}?client_id=${apiKey}`
-  );
-  const topic = await response.json();
+  const topic = await fetchData(`/topics/${params.topic}`);
   return {
     title: `${topic.title} | Galleria`,
     description: `${topic.description}`,

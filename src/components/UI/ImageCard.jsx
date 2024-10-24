@@ -6,7 +6,7 @@ import Link from "next/link";
 import { CheckCircleIcon } from "../Icons/Check";
 import DownloadButton from "./DownloadButton";
 import DownloadBtnFull from "./DownloadBtnFull";
-import { blurhashToBase64 } from "blurhash-base64";
+import { blurhashToDataUri } from "@unpic/placeholder";
 
 export default function ImageCard({ image }) {
   return (
@@ -16,24 +16,28 @@ export default function ImageCard({ image }) {
     >
       <Link
         href={`/photos/${image.slug}`}
-        className="relative flex transition bg-gradient-to-b from-[#00000057] via-[#0000001a] via-50% to-[#00000059] cursor-zoom-in"
+        className="relative flex transition cursor-zoom-in"
         style={{
           aspectRatio: `${image.width} / ${image.height}`,
         }}
       >
+        {image.blur_hash && (
+          <Image
+            className="w-full h-auto object-cover"
+            alt={image.alt_description || image.slug}
+            title={image.alt_description || image.slug}
+            src={blurhashToDataUri(image.blur_hash)}
+            fill
+          />
+        )}
         <Image
           src={image.urls.small}
           className="w-full h-auto object-cover"
-          placeholder="blur"
-          blurDataURL={
-            blurhashToBase64(image.blur_hash) ??
-            "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAADUlEQVR4AQECAP3/AAAAAgABfgUN0gAAAABJRU5ErkJggg=="
-          }
+          alt={image.alt_description || image.slug}
+          title={image.alt_description || image.slug}
           style={{
             aspectRatio: `${image.width} / ${image.height}`,
           }}
-          alt={image.alt_description || image.slug}
-          title={image.alt_description || image.slug}
           fill
         />
       </Link>

@@ -35,7 +35,7 @@ export default function Images({ staticImages, totalPhotos = 1000, endpoint }) {
   }
 
   return (
-    <main className="my-5 sm:my-10 mx-0 sm:mx-12">
+    <main className="my-5 sm:my-10 mx-0 sm:mx-auto sm:max-w-[1320px] sm:px-5">
       <InfiniteScroll
         dataLength={filteredImages.length}
         next={fetchNextPage}
@@ -44,7 +44,7 @@ export default function Images({ staticImages, totalPhotos = 1000, endpoint }) {
         endMessage={<p></p>}
       >
         <ResponsiveMasonry
-          columnsCountBreakPoints={{ 300: 1, 640: 2, 1024: 3, 1440: 4 }}
+          columnsCountBreakPoints={{ 300: 1, 640: 2, 1024: 3, 1440: 3 }}
         >
           <Masonry gutter="var(--gutter)">
             {filteredImages.flatMap((image) => {

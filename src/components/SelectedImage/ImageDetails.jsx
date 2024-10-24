@@ -6,7 +6,7 @@ import Details from "./Details";
 import RelatedImages from "./RelatedImages";
 import ShareIcon from "../Icons/Share";
 import SelectedImageHeader from "./Header";
-import { blurhashToBase64 } from "blurhash-base64";
+import { blurhashToDataUri } from "@unpic/placeholder";
 
 function toggleImageScale(event) {
   const image = event.target;
@@ -41,24 +41,22 @@ export default function ImageDetails({ image, relatedImages }) {
       <div>
         <SelectedImageHeader image={image} />
         <figure className="selected-image relative w-full">
-          <Image
-            src={image.urls.regular}
-            priority
-            placeholder="blur"
-            blurDataURL={
-              blurhashToBase64(image.blur_hash) ??
-              "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAADUlEQVR4AQECAP3/AAAAAgABfgUN0gAAAABJRU5ErkJggg=="
-            }
-            alt={image.alt_description || image.slug}
-            title="Zoom in this image"
-            style={{
-              aspectRatio: `${image.width} / ${image.height}`,
-              backgroundColor: `${image.color}`,
-            }}
-            width={image.width}
-            height={image.height}
-            onClick={toggleImageScale}
-          />
+          {image.blur_hash && (
+            <Image
+              src={image.urls.regular}
+              priority
+              alt={image.alt_description || image.slug}
+              title="Zoom in this image"
+              placeholder="blur"
+              blurDataURL={blurhashToDataUri(image.blur_hash)}
+              style={{
+                aspectRatio: `${image.width} / ${image.height}`,
+              }}
+              width={image.width}
+              height={image.height}
+              onClick={toggleImageScale}
+            />
+          )}
         </figure>
         <div className="selected-image__details grid items-center gap-6 px-5 py-4">
           <Stats image={image} />
