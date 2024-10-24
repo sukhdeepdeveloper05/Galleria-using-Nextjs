@@ -1,11 +1,24 @@
 "use client";
 
+import setCookie from "@/helpers/setCookie";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function AvatarButton({ profile }) {
+  const pathname = usePathname();
+  const router = useRouter();
+
   const [showOptions, setShowOptions] = useState(false);
+
+  async function handleLogout(e) {
+    e.preventDefault();
+
+    await setCookie("logout_redir", pathname);
+
+    return router.push("/logout");
+  }
 
   return (
     <button
@@ -36,9 +49,13 @@ export default function AvatarButton({ profile }) {
         <hr className="h-px bg-[#0003] my-2 border-none" />
         <li>
           <a
-            className="text-gray text-sm py-2 px-4 whitespace-nowrap no-underline flex hover:bg-[#f5f5f5] hover:text-black"
+            className="text-gray text-sm py-2 px-4 no-underline flex hover:bg-[#f5f5f5] hover:text-black"
             href="/logout"
-          >{`Logout @${profile.username}`}</a>
+            onClick={async (e) => await handleLogout(e)}
+            title={profile.username}
+          >
+            <span className="line-clamp-1 break-all w-full">{`Logout @${profile.username}`}</span>
+          </a>
         </li>
       </ul>
     </button>

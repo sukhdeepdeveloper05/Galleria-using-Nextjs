@@ -6,5 +6,11 @@ export function GET(request) {
 
   cookieStore.delete("token");
 
-  return NextResponse.redirect(new URL("/?flash=logout", request.url));
+  const redir = cookieStore.get("logout_redir");
+
+  cookieStore.delete("logout_redir");
+
+  return NextResponse.redirect(
+    new URL(`${redir.value}?flash=logout`, request.url)
+  );
 }
