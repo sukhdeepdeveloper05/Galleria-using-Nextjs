@@ -3,7 +3,7 @@
 import { apiKey } from "../config";
 
 export default async function fetchData(endpoint) {
-  // try {
+  try {
     const response = await fetch(`https://api.unsplash.comm${endpoint}`, {
       headers: {
         Authorization: `Client-ID ${apiKey}`,
@@ -23,7 +23,7 @@ export default async function fetchData(endpoint) {
     const resData = await response.json();
 
     return resData;
-  // } catch (error) {
-  //   throw new Error(error.message);
-  // }
+  } catch (error) {
+    throw new Error("Hello");
+  }
 }
