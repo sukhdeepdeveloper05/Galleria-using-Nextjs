@@ -5,7 +5,7 @@ import Error from "@/app/error.jsx";
 
 export default async function fetchData(endpoint) {
   try {
-    const response = await fetch(`https://api.unsplash.comm${endpoint}`, {
+    const response = await fetch(`https://api.unsplash.com${endpoint}`, {
       headers: {
         Authorization: `Client-ID ${apiKey}`,
       },
@@ -25,6 +25,6 @@ export default async function fetchData(endpoint) {
 
     return resData;
   } catch (error) {
-    throw new Error({error:"hello"});
+    throw new Error(error.message);
   }
 }
