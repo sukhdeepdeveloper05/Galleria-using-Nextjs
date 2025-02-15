@@ -10,15 +10,15 @@ export default async function fetchData(endpoint) {
       },
     });
 
-    if (!response.ok) {
-      if (response.text() === "Rate Limit Exceeded") {
-        throw new Error(await response.text());
-      } else {
-        throw new Error(
-          (await response.json().errors[0]) || "Something went wrong"
-        );
-      }
-    }
+    // if (!response.ok) {
+    //   if (response.text() === "Rate Limit Exceeded") {
+    //     throw new Error(await response.text());
+    //   } else {
+    //     throw new Error(
+    //       (await response.json().errors[0]) || "Something went wrong"
+    //     );
+    //   }
+    // }
 
     const resData = await response.json();
 
