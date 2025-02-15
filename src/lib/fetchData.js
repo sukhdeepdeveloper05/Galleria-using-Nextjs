@@ -25,6 +25,6 @@ export default async function fetchData(endpoint) {
 
     return resData;
   } catch (error) {
-    throw new Error("Hello");
+    throw new Error({error:"hello"});
   }
 }
