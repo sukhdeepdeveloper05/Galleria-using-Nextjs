@@ -1,7 +1,6 @@
 "use server";
 
 import { apiKey } from "../config";
-import Error from "@/app/error.jsx";
 
 export default async function fetchData(endpoint) {
   try {
