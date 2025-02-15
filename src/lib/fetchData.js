@@ -4,7 +4,7 @@ import { apiKey } from "../config";
 
 export default async function fetchData(endpoint) {
   try {
-    const response = await fetch(`https://api.unsplash.com${endpoint}`, {
+    const response = await fetch(`https://api.unsplash.comm${endpoint}`, {
       headers: {
         Authorization: `Client-ID ${apiKey}`,
       },
